@@ -53,8 +53,8 @@ int main(void) {
     map = load_map(MAP_NAME, &HEIGHT, &WIDTH);
     dot_map = dotMapMake(map);
 
-    printf("%d\n", random1);
-    printf("%d\n", random2);
+    //printf("%d\n", random1);
+    //printf("%d\n", random2);
     int pacman_x,pacman_y;
     int ghost_x[NUM_GHOSTS];
     int ghost_y[NUM_GHOSTS];
@@ -127,9 +127,22 @@ int main(void) {
         move_actor(&pacman_y,&pacman_x,pacman_direction,1);
         mapUpdatePositions(temp_x,temp_y,pacman_x,pacman_y);
         for(int i=0;i<NUM_GHOSTS;++i){
+
             if(sees_pacman(pacman_y,pacman_x,ghost_y[i],ghost_x[i]) != SEES_NOTHING){
                 ghostdirection[i] = sees_pacman(pacman_y,pacman_x,ghost_y[i],ghost_x[i]);
+            } else {
+
+                // 1. find a random direction in which the ghost travels
+                const char possible_directions[] = {UP, DOWN, LEFT, RIGHT};
+
+                char random_dir = possible_directions[rand() % 4];
+
+
+                // 2. set ghost to move in that direction
+                ghostdirection[i] = random_dir;
             }
+
+
             temp_x = ghost_x[i];
             temp_y = ghost_y[i];
             move_actor(&ghost_y[i],&ghost_x[i],ghostdirection[i],0);

@@ -14,7 +14,9 @@ extern int WIDTH;
 
 void printMap(int height, int width, char *map){
 
-    change_text_colour(WHITE); // white walls
+    int wall_colour = BLUE;
+
+    change_text_colour(wall_colour); // white walls
     srand(time(NULL));
 
     for (int i=0; i < width + 2; i++) { printf("W  "); }
@@ -30,28 +32,22 @@ void printMap(int height, int width, char *map){
                     change_text_colour(YELLOW);
                     break;
                 case WALL:
-                    change_text_colour(WHITE);
+                    change_text_colour(wall_colour);
                     break;
                 case GHOST:
-                    // Randomly choose between pink and blue
-                    if (rand() % 2 == 0) {
-                        change_text_colour(PINK);
-                    } else {
-                        change_text_colour(BLUE);
-                    }
+                    change_text_colour(PINK);
                     break;
                 case DOT:
                     change_text_colour(YELLOW);
                     break;
                 default:
-                    // Handle any other symbols here
                     break;
             }
 
 
             printf("%3c", map[(y * width) + x]);
         }
-        change_text_colour(WHITE); // walls will always be white
+        change_text_colour(wall_colour); // walls will always be white
         printf("  W");
         printf("\n");
     }
