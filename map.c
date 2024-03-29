@@ -90,7 +90,7 @@ int is_wall(int y, int x) {
     return (map[((y) * WIDTH) + (x)] == WALL) ? YES_WALL : NOT_WALL;
 }
 
-char * load_map(char * filename, int *map_height, int *map_width) {
+char* load_map(char * filename, int *map_height, int *map_width) {
     //opens file
     FILE *mapFile;
     mapFile = fopen(filename,"r");
