@@ -5,6 +5,7 @@
 #define PROJECT_GAME_H
 
 /** Functions required to be implemented **/
+//void printMap(int height, int width, char *map);
 void printMap(int height, int width, char *map);
 
 
@@ -41,7 +42,7 @@ int check_win(int pacman_y, int pacman_x, int ghosts_y[NUM_GHOSTS], int ghosts_x
  * @param ghosts_x An array of X coordinates of ghosts
  * @return
  */
-int check_loss(int pacman_y, int pacman_x, int ghosts_y[NUM_GHOSTS], int ghosts_x[NUM_GHOSTS]);
+int check_loss(int pacman_y, int pacman_x, const int ghosts_y[NUM_GHOSTS], const int ghosts_x[NUM_GHOSTS]);
 
 /** Other function prototypes can go below here **/
 

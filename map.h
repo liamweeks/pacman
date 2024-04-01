@@ -95,6 +95,7 @@ int move_actor(int * y, int * x, char direction, int eat_dots);
 
 /** Other function prototypes can go below here **/
 void mapUpdatePositions(int oldx, int oldy, int newx, int newy);
+void move_ghost_randomly(int *ghost_x, int *ghost_y, char *map, int width, int height);
 char *dotMapMake(char *Map);
 
 #endif //PROJECT_MAP_H

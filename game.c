@@ -23,7 +23,7 @@ void printMap(int height, int width, char *map){
     printf("\n");
 
     for(int y=0; y<height; y++) {
-        printf("W");
+        printf("W ");
         for (int x=0; x < width; x++) {
             char symbol = map[(y * width) + x];
 
@@ -48,7 +48,7 @@ void printMap(int height, int width, char *map){
             printf("%3c", map[(y * width) + x]);
         }
         change_text_colour(wall_colour); // walls will always be white
-        printf("  W");
+        printf(" W");
         printf("\n");
     }
 
@@ -75,8 +75,8 @@ int check_win(int pacman_y, int pacman_x, int ghosts_y[NUM_GHOSTS], int ghosts_x
     }
 }
 
-int check_loss(int pacman_y, int pacman_x, int ghosts_y[NUM_GHOSTS], int ghosts_x[NUM_GHOSTS]) {
-    for(int i=0; i<NUM_GHOSTS; ++i){
+int check_loss(int pacman_y, int pacman_x, const int ghosts_y[NUM_GHOSTS], const int ghosts_x[NUM_GHOSTS]) {
+    for(int i=0; i < NUM_GHOSTS; i++){
         if(pacman_x == ghosts_x[i] && pacman_y == ghosts_y[i]){
             return YOU_LOSE;
         }

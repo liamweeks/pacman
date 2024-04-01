@@ -36,6 +36,28 @@ char *dotMapMake(char *Map){
     return dotMap;
 }
 
+void move_ghost_randomly(int *ghost_x, int *ghost_y, char *map, int width, int height) {
+    // Define the possible directions
+    const char possible_directions[] = {UP, DOWN, LEFT, RIGHT};
+
+    // Try a random direction until a valid move is found
+    while (1) {
+        // Select a random direction
+        char random_dir = possible_directions[rand() % 4];
+
+        // Check if the ghost can move in that direction
+        int temp_x = *ghost_x;
+        int temp_y = *ghost_y;
+        if (move_actor(&temp_y, &temp_x, random_dir, 0) == MOVED_OKAY) {
+            // Update the ghost's position
+            *ghost_x = temp_x;
+            *ghost_y = temp_y;
+            return;
+        }
+    }
+}
+
+
 
 int move_actor(int * y, int * x, char direction, int eat_dots) {
     switch(direction){

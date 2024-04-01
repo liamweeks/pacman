@@ -129,23 +129,56 @@ int main(void) {
         for(int i=0;i<NUM_GHOSTS;++i){
 
             if(sees_pacman(pacman_y,pacman_x,ghost_y[i],ghost_x[i]) != SEES_NOTHING){
-                ghostdirection[i] = sees_pacman(pacman_y,pacman_x,ghost_y[i],ghost_x[i]);
+                //ghostdirection[i] = sees_pacman(pacman_y,pacman_x,ghost_y[i],ghost_x[i]);
+                // Ghost can see Pacman, so move towards Pacman
+                ghostdirection[i] = sees_pacman(pacman_y, pacman_x, ghost_y[i], ghost_x[i]);
+
+                // Move the ghost towards Pacman
+                int temp_x = ghost_x[i];
+                int temp_y = ghost_y[i];
+                if (move_actor(&temp_y, &temp_x, ghostdirection[i], 0) == MOVED_OKAY) {
+                    // Check if the ghost has moved onto Pacman's spot
+                    if (check_loss(pacman_y, pacman_x, ghost_y, ghost_x)) {
+                        // Ghost has eaten Pacman
+                        printf("Pacman has been eaten by a ghost!\n");
+                        // replace P with G
+                        map[pacman_y * WIDTH + pacman_x] = GHOST;
+                        break;
+                    }
+
+                    // Update the ghost's position
+                    ghost_x[i] = temp_x;
+                    ghost_y[i] = temp_y;
+                    mapUpdatePositions(temp_x, temp_y, ghost_x[i], ghost_y[i]);
+
+                }
             } else {
 
                 // 1. find a random direction in which the ghost travels
                 const char possible_directions[] = {UP, DOWN, LEFT, RIGHT};
-
                 char random_dir = possible_directions[rand() % 4];
 
+                // 2. Check that the ghost can go in that direction
+                int temp_x = ghost_x[i];
+                int temp_y = ghost_y[i];
 
-                // 2. set ghost to move in that direction
-                ghostdirection[i] = random_dir;
+                int move_dir = move_actor(&temp_y, &temp_x, random_dir, 0);
+
+               while (move_dir == MOVED_WALL || move_dir == MOVED_INVALID_DIRECTION) {
+
+                    random_dir = possible_directions[rand() % 4];
+
+                    move_dir = move_actor(&temp_y, &temp_x, random_dir, 0);
+               }
             }
+
+
 
 
             temp_x = ghost_x[i];
             temp_y = ghost_y[i];
-            move_actor(&ghost_y[i],&ghost_x[i],ghostdirection[i],0);
+            //move_actor(&ghost_y[i],&ghost_x[i],ghostdirection[i],0);
+            move_ghost_randomly(&ghost_x[i], &ghost_y[i], map, WIDTH, HEIGHT);
             mapUpdatePositions(temp_x,temp_y,ghost_x[i],ghost_y[i]);
         }
 
@@ -161,3 +194,12 @@ int main(void) {
     }
     return NO_ERROR;
 }
+
+/**
+ * Moves the ghost in a random direction, avoiding walls.
+ * @param ghost_x The x-coordinate of the ghost.
+ * @param ghost_y The y-coordinate of the ghost.
+ * @param map The map data.
+ * @param width The width of the map.
+ * @param height The height of the map.
+ */
