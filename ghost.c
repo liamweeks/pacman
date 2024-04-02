@@ -4,6 +4,7 @@
 #include "defines.h"
 #include "ghost.h"
 #include "map.h"
+#include "colours.h"
 
 extern char *map, *dot_map;
 extern int WIDTH, HEIGHT;
@@ -35,6 +36,6 @@ char sees_pacman(int pacman_y, int pacman_x, int ghost_y, int ghost_x) {
             }
             return UP;
         }
-        }
-        return SEES_NOTHING;
     }
+    return SEES_NOTHING;
+}
