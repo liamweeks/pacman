@@ -18,8 +18,8 @@ char sees_pacman(int pacman_y, int pacman_x, int ghost_y, int ghost_x) {
             return RIGHT;
         }
         else {
-            for(int i=0; ghost_x+1 != pacman_x; i--){
-                if(is_wall(ghost_y,ghost_x+1)) return SEES_NOTHING;
+            for(int i=0; ghost_x + i != pacman_x; i--){
+                if(is_wall(ghost_y,ghost_x + i)) return SEES_NOTHING;
             }
             return LEFT;
         }
@@ -27,12 +27,12 @@ char sees_pacman(int pacman_y, int pacman_x, int ghost_y, int ghost_x) {
     else if (pacman_x == ghost_x) {
         if (pacman_y > ghost_y) {
             for (int i = 0; ghost_y + i != pacman_y; i++) {
-                if (is_wall(ghost_y + 1, ghost_x)) return SEES_NOTHING;
+                if (is_wall(ghost_y + i, ghost_x)) return SEES_NOTHING;
             }
             return DOWN;
         } else {
             for (int i = 0; ghost_y + i != pacman_y; i--) {
-                if (is_wall(ghost_y + 1, ghost_x)) return SEES_NOTHING;
+                if (is_wall(ghost_y + i, ghost_x)) return SEES_NOTHING;
             }
             return UP;
         }
