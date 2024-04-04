@@ -48,4 +48,4 @@ int check_loss(int pacman_y, int pacman_x, int ghosts_y[NUM_GHOSTS], int ghosts_
 /** Other function prototypes can go below here **/
 
 
-#endif //PROJECT_GAME_H'
+#endif //PROJECT_GAME_H

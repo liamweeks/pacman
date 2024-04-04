@@ -132,22 +132,22 @@ int main(void) {
             } else {
 
 
-               /* // 1. find a random direction in which the ghost travels
-                const char possible_directions[] = {UP, DOWN, LEFT, RIGHT};
+                /* // 1. find a random direction in which the ghost travels
+                 const char possible_directions[] = {UP, DOWN, LEFT, RIGHT};
 
-                char random_dir; // = possible_directions[rand() % 4];
-                int arraySize = sizeof(possible_directions) / sizeof(possible_directions[0]);
-                srand(time(NULL));
-                int random_index = rand() % arraySize;
+                 char random_dir; // = possible_directions[rand() % 4];
+                 int arraySize = sizeof(possible_directions) / sizeof(possible_directions[0]);
+                 srand(time(NULL));
+                 int random_index = rand() % arraySize;
 
-                random_dir = possible_directions[random_index];
-
-
-                printf("Going: %c", random_dir);
+                 random_dir = possible_directions[random_index];
 
 
-                // 2. set ghost to move in that direction
-                ghostdirection[i] = random_dir;*/
+                 printf("Going: %c", random_dir);
+
+
+                 // 2. set ghost to move in that direction
+                 ghostdirection[i] = random_dir;*/
 
 
                 ghostdirection[i] = get_valid_random_direction(ghost_y[i], ghost_x[i]);
@@ -159,10 +159,9 @@ int main(void) {
             move_actor(&ghost_y[i], &ghost_x[i], ghostdirection[i], 0);
             mapUpdatePositions(temp_x, temp_y, ghost_x[i], ghost_y[i]);
 
-
         }
 
-        /*if (check_win(pacman_y, pacman_x, ghost_y, ghost_x)) {
+        if (check_win(pacman_y, pacman_x, ghost_y, ghost_x)) {
             printf("Congratulations! You win!");
             break;
         }
@@ -174,44 +173,6 @@ int main(void) {
             printMap(HEIGHT, WIDTH, map);
             printf("Sorry, you lose.");
             break;
-        }*/
-
-        if (check_win(pacman_y, pacman_x, ghost_y, ghost_x)) {
-            printf("Congratulations! You win!");
-            break;
-        }
-
-        if (check_loss(pacman_y, pacman_x, ghost_y, ghost_x)) {
-            /* //printf("The game is over (final blit)");
-
-             map[pacman_y * WIDTH + pacman_x] = GHOST;
-             printMap(HEIGHT, WIDTH, map);
-             printf("Sorry, you lose.");
-             break;*/
-
-            if (check_loss(pacman_y, pacman_x, ghost_y, ghost_x)) {
-                // Check if any ghosts have collided with Pacman
-                bool any_ghosts_collided = false;
-                for (int i = 0; i < NUM_GHOSTS; i++) {
-                    if (pacman_y == ghost_y[i] && pacman_x == ghost_x[i]) {
-                        any_ghosts_collided = true;
-                        break;
-                    }
-                }
-
-                // If any ghosts have collided with Pacman, update the map and display the loss message
-                if (any_ghosts_collided) {
-                    // Update the map to show all the ghosts
-                    for (int i = 0; i < NUM_GHOSTS; i++) {
-                        map[ghost_y[i] * WIDTH + ghost_x[i]] = GHOST;
-                    }
-                    printMap(HEIGHT, WIDTH, map);
-                    printf("Sorry, you lose.");
-                    break;
-                }
-            }
-
-
         }
     }
     return NO_ERROR;
