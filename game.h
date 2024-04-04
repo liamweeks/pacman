@@ -10,6 +10,7 @@ void printMap(int height, int width, char *map);
 
 #define KEEP_GOING 0
 #define YOU_WIN 1
+
 /**
  * Returns if the game has been won or not.
  * Checks the global maps to see if all the dots have been eaten.
@@ -25,6 +26,7 @@ void printMap(int height, int width, char *map);
 int check_win(int pacman_y, int pacman_x, int ghosts_y[NUM_GHOSTS], int ghosts_x[NUM_GHOSTS]);
 
 #define YOU_LOSE 1
+
 /**
  * Returns if the game has been lost or not.
  * Compares the positions of the ghosts with the position of

@@ -21,7 +21,9 @@
  * @return a single character pressed by the user
  */
 #if defined (__APPLE__) || defined (__linux__)
+
 char getch(void);
+
 #endif
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
 #include <conio.h>

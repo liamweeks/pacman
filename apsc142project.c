@@ -29,7 +29,6 @@ char *map = NULL, *dot_map = NULL;
 int WIDTH, HEIGHT;
 
 
-
 /**
  * Main entry point into your program.
  * Make sure that main returns appropriate status codes depending on what
@@ -46,16 +45,13 @@ int main(void) {
     setbuf(stdout, NULL);
     srand(time(NULL)); // set a seed for the random number generator
 
-    int random1 = rand() % 4;
-    int random2 = rand() % 4;
 
 
     map = load_map(MAP_NAME, &HEIGHT, &WIDTH);
     dot_map = dotMapMake(map);
 
-    //printf("%d\n", random1);
-    //printf("%d\n", random2);
-    int pacman_x,pacman_y;
+
+    int pacman_x, pacman_y;
     int ghost_x[NUM_GHOSTS];
     int ghost_y[NUM_GHOSTS];
 
@@ -65,17 +61,16 @@ int main(void) {
     int l = 0;
 
     //goes through the map to find pacman and the ghosts position as the index of the map
-    for(int i =0; i < WIDTH * HEIGHT; i++){
-        if(i % WIDTH == 0){
-            j=0;
+    for (int i = 0; i < WIDTH * HEIGHT; i++) {
+        if (i % WIDTH == 0) {
+            j = 0;
             k++;
         }
-        if(map[i] == GHOST){
+        if (map[i] == GHOST) {
             ghost_x[l] = j;
-            ghost_y[l] =k;
+            ghost_y[l] = k;
             l++;
-        }
-        else if(map[i] == PACMAN){
+        } else if (map[i] == PACMAN) {
             pacman_x = j;
             pacman_y = k;
         }
@@ -85,15 +80,16 @@ int main(void) {
     char pacman_direction;
     char ghostdirection[NUM_GHOSTS];
 
-    while(1) {
+    while (1) {
         printMap(HEIGHT, WIDTH, map);
         printf("\n");
-        if(check_win(pacman_y, pacman_x, ghost_y,ghost_x)) {
+        /*if (check_win(pacman_y, pacman_x, ghost_y, ghost_x)) {
             break;
         }
-        if(check_loss(pacman_y,pacman_x,ghost_y,ghost_x)){
+        if (check_loss(pacman_y, pacman_x, ghost_y, ghost_x)) {
+
             break;
-        }
+        }*/
         pacman_direction = getch();
         //printf("%s", pacman_direction);
 
@@ -124,18 +120,19 @@ int main(void) {
         int temp_x = pacman_x;
         int temp_y = pacman_y;
 
-        move_actor(&pacman_y,&pacman_x,pacman_direction,1);
-        mapUpdatePositions(temp_x,temp_y,pacman_x,pacman_y);
-        for(int i=0;i<NUM_GHOSTS;++i){
+        move_actor(&pacman_y, &pacman_x, pacman_direction, 1);
+        mapUpdatePositions(temp_x, temp_y, pacman_x, pacman_y);
+        for (int i = 0; i < NUM_GHOSTS; ++i) {
 
-            if(sees_pacman(pacman_y,pacman_x,ghost_y[i],ghost_x[i]) != SEES_NOTHING){
-                ghostdirection[i] = sees_pacman(pacman_y,pacman_x,ghost_y[i],ghost_x[i]);
+            if (sees_pacman(pacman_y, pacman_x, ghost_y[i], ghost_x[i]) != SEES_NOTHING) {
+                ghostdirection[i] = sees_pacman(pacman_y, pacman_x, ghost_y[i], ghost_x[i]);
             } else {
 
                 // 1. find a random direction in which the ghost travels
                 const char possible_directions[] = {UP, DOWN, LEFT, RIGHT};
 
                 char random_dir = possible_directions[rand() % 4];
+
 
 
                 // 2. set ghost to move in that direction
@@ -145,8 +142,8 @@ int main(void) {
 
             temp_x = ghost_x[i];
             temp_y = ghost_y[i];
-            move_actor(&ghost_y[i],&ghost_x[i],ghostdirection[i],0);
-            mapUpdatePositions(temp_x,temp_y,ghost_x[i],ghost_y[i]);
+            move_actor(&ghost_y[i], &ghost_x[i], ghostdirection[i], 0);
+            mapUpdatePositions(temp_x, temp_y, ghost_x[i], ghost_y[i]);
 
 
         }
@@ -157,6 +154,10 @@ int main(void) {
         }
 
         if (check_loss(pacman_y, pacman_x, ghost_y, ghost_x)) {
+            //printf("The game is over (final blit)");
+
+            map[pacman_y * WIDTH + pacman_x] = GHOST;
+            printMap(HEIGHT, WIDTH, map);
             printf("Sorry, you lose.");
             break;
         }

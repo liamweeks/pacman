@@ -2,12 +2,13 @@
 // Copyright Sean Kauffman 2024
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+
 #include "doctest.h"
 
 #include <stdio.h>
 
 // make sure not to modify anything in this extern block
-extern "C"{
+extern "C" {
 #include "defines.h"
 #include "map.h"
 #include "ghost.h"
@@ -31,7 +32,7 @@ TEST_SUITE_BEGIN("Map tests");
 TEST_CASE("Test load_map with valid map file") {
     setup();
     int map_height, map_width;
-    char* loaded_map = load_map("map.txt", &map_height, &map_width);
+    char *loaded_map = load_map("map.txt", &map_height, &map_width);
     CHECK(loaded_map != NULL);
     CHECK(map_height == 10);
     CHECK(map_width == 10);
@@ -42,7 +43,7 @@ TEST_CASE("Test load_map with valid map file") {
 TEST_CASE("Test load_map with non-existent map file") {
     setup();
     int map_height, map_width;
-    char* loaded_map = load_map("non_existent_map.txt", &map_height, &map_width);
+    char *loaded_map = load_map("non_existent_map.txt", &map_height, &map_width);
     CHECK(loaded_map == NULL);
     teardown();
 }

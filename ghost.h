@@ -8,6 +8,7 @@
 
 #define SEES_NOTHING 0
 #define EATING_PACMAN 1
+
 /**
  * Checks if a ghost can see pacman, and in what direction they must
  * look to see him.

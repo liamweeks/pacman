@@ -40,10 +40,11 @@
  * @param map_width A pointer to where the map WIDTH should be stored
  * @return A pointer to the loaded map, or NULL on error
  */
-char * load_map(char * filename, int * map_height, int *map_width);
+char *load_map(char *filename, int *map_height, int *map_width);
 
 #define NOT_WALL 0
 #define YES_WALL 1
+
 /**
  * Determines if a coordinate in the map is a wall or not.
  * This function should use the global map and the passed coordinates
@@ -64,6 +65,7 @@ int is_wall(int y, int x);
 #define MOVED_INVALID_DIRECTION 2
 #define REPLACE_DOTS 0
 #define EAT_DOTS 1
+
 /**
  * Try to move an actor at the given coordinates, respecting walls and
  * updating the map to replace a dot if required.
@@ -91,11 +93,14 @@ int is_wall(int y, int x);
  * @param eat_dots Whether or not to update the map from the dot map
  * @return A status code depending on the result of the function
  */
-int move_actor(int * y, int * x, char direction, int eat_dots);
+int move_actor(int *y, int *x, char direction, int eat_dots);
 
 /** Other function prototypes can go below here **/
-void mapUpdatePositions(int oldx, int oldy, int newx, int newy);
-void move_ghost_randomly(int *ghost_x, int *ghost_y, char *map, int width, int height);
+void mapUpdatePositions(int old_x, int old_y, int new_x, int new_y);
+
+void place_actor(int x, int y, char actor);
+
+//void move_ghost_randomly(int *ghost_x, int *ghost_y, char *map, int width, int height);
 char *dotMapMake(char *Map);
 
 #endif //PROJECT_MAP_H
