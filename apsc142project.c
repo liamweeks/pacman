@@ -128,11 +128,19 @@ int main(void) {
                 ghostdirection[i] = sees_pacman(pacman_y, pacman_x, ghost_y[i], ghost_x[i]);
             } else {
 
+
                 // 1. find a random direction in which the ghost travels
                 const char possible_directions[] = {UP, DOWN, LEFT, RIGHT};
 
-                char random_dir = possible_directions[rand() % 4];
+                char random_dir; // = possible_directions[rand() % 4];
+                int arraySize = sizeof(possible_directions) / sizeof(possible_directions[0]);
+                srand(time(NULL));
+                int random_index = rand() % arraySize;
 
+                random_dir = possible_directions[random_index];
+
+
+                printf("Going: %c", random_dir);
 
 
                 // 2. set ghost to move in that direction
@@ -144,7 +152,6 @@ int main(void) {
             temp_y = ghost_y[i];
             move_actor(&ghost_y[i], &ghost_x[i], ghostdirection[i], 0);
             mapUpdatePositions(temp_x, temp_y, ghost_x[i], ghost_y[i]);
-
 
         }
 

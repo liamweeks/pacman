@@ -43,6 +43,20 @@ char *dotMapMake(char *Map) {
     return dotMap;
 }
 
+char opposite_direction(char direction) {
+
+    switch (direction) {
+        case UP:
+            return DOWN;
+        case DOWN:
+            return UP;
+        case RIGHT:
+            return LEFT;
+        case LEFT:
+            return RIGHT;
+    }
+}
+
 
 int move_actor(int *y, int *x, char direction, int eat_dots) {
     switch (direction) {

@@ -63,6 +63,7 @@ int is_wall(int y, int x);
 #define MOVED_OKAY 0
 #define MOVED_WALL 1
 #define MOVED_INVALID_DIRECTION 2
+#define STAY 3
 #define REPLACE_DOTS 0
 #define EAT_DOTS 1
 
@@ -102,5 +103,6 @@ void place_actor(int x, int y, char actor);
 
 //void move_ghost_randomly(int *ghost_x, int *ghost_y, char *map, int width, int height);
 char *dotMapMake(char *Map);
+char opposite_direction(char direction);
 
 #endif //PROJECT_MAP_H
