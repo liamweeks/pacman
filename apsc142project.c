@@ -15,6 +15,7 @@
 #include "map.h"
 #include "game.h"
 #include "ghost.h"
+#include "stdbool.h"
 
 
 // Required for random number generator
@@ -27,6 +28,8 @@
 char *map = NULL, *dot_map = NULL;
 // WIDTH and HEIGHT store the WIDTH and HEIGHT of map, NOT counting outer walls
 int WIDTH, HEIGHT;
+
+bool is_move_valid(int y, int x);
 
 
 /**
@@ -129,7 +132,7 @@ int main(void) {
             } else {
 
 
-                // 1. find a random direction in which the ghost travels
+               /* // 1. find a random direction in which the ghost travels
                 const char possible_directions[] = {UP, DOWN, LEFT, RIGHT};
 
                 char random_dir; // = possible_directions[rand() % 4];
@@ -144,7 +147,10 @@ int main(void) {
 
 
                 // 2. set ghost to move in that direction
-                ghostdirection[i] = random_dir;
+                ghostdirection[i] = random_dir;*/
+
+
+                ghostdirection[i] = get_valid_random_direction(ghost_y[i], ghost_x[i]);
             }
 
 

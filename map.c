@@ -7,6 +7,7 @@
 #include "defines.h"
 #include "colours.h"
 #include "map.h"
+#include "stdbool.h"
 
 extern char *map, *dot_map;
 extern int WIDTH, HEIGHT;
@@ -142,4 +143,45 @@ char *load_map(char *filename, int *map_height, int *map_width) {
     mapArray[mapSize] = '\0';
     fclose(mapFile);
     return mapArray;
+}
+
+// Function to get a valid random direction that doesn't lead to a wall or out of bounds
+char get_valid_random_direction(int ghost_y, int ghost_x) {
+    const char possible_directions[] = {UP, DOWN, LEFT, RIGHT};
+    char valid_directions[4];
+    int valid_count = 0;
+
+    // Check each possible direction for validity
+    for (int i = 0; i < 4; i++) {
+        int new_y = ghost_y, new_x = ghost_x;
+        switch (possible_directions[i]) {
+            case UP:    new_y--; break;
+            case DOWN:  new_y++; break;
+            case LEFT:  new_x--; break;
+            case RIGHT: new_x++; break;
+        }
+        if (is_move_valid(new_y, new_x)) {
+            valid_directions[valid_count++] = possible_directions[i];
+        }
+    }
+
+    if (valid_count == 0) {
+        // No valid move found; could return a special value or handle differently
+        return 'N'; // Example special value indicating 'No Move'
+    }
+
+    // Select a random valid direction
+    int random_index = rand() % valid_count;
+    return valid_directions[random_index];
+}
+
+
+bool is_move_valid(int y, int x) {
+    // Return false if the move is out of bounds
+    if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT) return false;
+
+    // Return false if the move would hit a wall
+    if (is_wall(y, x)) return false;
+    // Otherwise, the move is valid
+    return true;
 }

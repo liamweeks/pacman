@@ -4,7 +4,11 @@
 #ifndef PROJECT_MAP_H
 #define PROJECT_MAP_H
 
+
+
 /** Functions required to be implemented **/
+
+#include <stdbool.h>
 
 /**
  * Loads a map file into an array allocated dynamically to store it.
@@ -104,5 +108,7 @@ void place_actor(int x, int y, char actor);
 //void move_ghost_randomly(int *ghost_x, int *ghost_y, char *map, int width, int height);
 char *dotMapMake(char *Map);
 char opposite_direction(char direction);
+bool is_move_valid(int y, int x);
+char get_valid_random_direction(int y, int x);
 
 #endif //PROJECT_MAP_H
