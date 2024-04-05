@@ -125,7 +125,11 @@ int main(void) {
 
         move_actor(&pacman_y, &pacman_x, pacman_direction, 1);
         mapUpdatePositions(temp_x, temp_y, pacman_x, pacman_y);
+
+
         for (int i = 0; i < NUM_GHOSTS; ++i) {
+
+            map[ghost_y[i] * WIDTH + ghost_x[i]] = GHOST;
 
             if (sees_pacman(pacman_y, pacman_x, ghost_y[i], ghost_x[i]) != SEES_NOTHING) {
                 ghostdirection[i] = sees_pacman(pacman_y, pacman_x, ghost_y[i], ghost_x[i]);
