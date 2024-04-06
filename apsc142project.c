@@ -29,7 +29,7 @@ char *map = NULL, *dot_map = NULL;
 // WIDTH and HEIGHT store the WIDTH and HEIGHT of map, NOT counting outer walls
 int WIDTH, HEIGHT;
 
-bool is_move_valid(int y, int x);
+
 
 
 /**
@@ -93,7 +93,20 @@ int main(void) {
 
             break;
         }*/
+
+
+        if (count_dots(dot_map) == 0) {
+            printf("Congratulations! You've eaten all the dots and won the game!\n");
+            // Perform any necessary cleanup before ending the game
+            free(map);
+            free(dot_map);
+            // Return from main or break out of the loop
+            return NO_ERROR; // or break; if you prefer to end the loop instead of returning
+        }
+
+
         pacman_direction = getch();
+
         //printf("%s", pacman_direction);
 
 /*
@@ -125,6 +138,8 @@ int main(void) {
 
         move_actor(&pacman_y, &pacman_x, pacman_direction, 1);
         mapUpdatePositions(temp_x, temp_y, pacman_x, pacman_y);
+
+
 
 
         for (int i = 0; i < NUM_GHOSTS; ++i) {
@@ -162,6 +177,14 @@ int main(void) {
             temp_y = ghost_y[i];
             move_actor(&ghost_y[i], &ghost_x[i], ghostdirection[i], 0);
             mapUpdatePositions(temp_x, temp_y, ghost_x[i], ghost_y[i]);
+
+            if (count_dots(dot_map) == 0) {
+                printf("Congratulations! You've eaten all the dots and won the game!\n");
+                free(map);
+                free(dot_map);
+                return NO_ERROR; // or break; if you prefer to end the loop instead of returning
+            }
+
 
         }
 

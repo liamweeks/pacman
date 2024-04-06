@@ -44,6 +44,15 @@ char *dotMapMake(char *Map) {
     return dotMap;
 }
 
+int count_dots(char *Map) {
+    int size = WIDTH * HEIGHT;
+    int dots = 0;
+    for (int i = 0; i < size; ++i) {
+        if (Map[i] == DOT) dots++;
+    }
+    return dots;
+}
+
 char opposite_direction(char direction) {
 
     switch (direction) {
@@ -109,15 +118,29 @@ char *load_map(char *filename, int *map_height, int *map_width) {
     FILE *mapFile;
     mapFile = fopen(filename, "r");
     if (mapFile == NULL) {
-        return NULL;
+        //return NULL;
+        return (char *) ERR_NO_MAP;
     }
     int mapSize = 0;
     *map_width = 0;
     *map_height = 0;
 
+    int ghost_count = 0;
+    int is_pacman = 0;
+
     while (1) {
         char current = getc(mapFile);
         if (current == DOT || current == WALL || current == PACMAN || current == GHOST) {
+
+            switch (current) {
+                case PACMAN:
+                    is_pacman++;
+
+                case GHOST:
+                    ghost_count++;
+                default:
+                    ;
+            }
             mapSize++;
             *map_width = *map_width + 1;
         }
@@ -127,6 +150,14 @@ char *load_map(char *filename, int *map_height, int *map_width) {
             *map_height = *map_height + 1;
             break;
         }
+    }
+
+    if (ghost_count == 0) {
+        return (char *) ERR_NO_GHOSTS;
+    }
+
+    if (is_pacman == 0) {
+        return (char *) ERR_NO_PACMAN;
     }
 
     *map_width = (*map_width / (*map_height));

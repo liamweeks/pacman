@@ -107,6 +107,7 @@ void place_actor(int x, int y, char actor);
 
 //void move_ghost_randomly(int *ghost_x, int *ghost_y, char *map, int width, int height);
 char *dotMapMake(char *Map);
+int count_dots(char *Map);
 char opposite_direction(char direction);
 bool is_move_valid(int y, int x);
 char get_valid_random_direction(int y, int x);
